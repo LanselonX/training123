@@ -18,7 +18,7 @@ class BalanceService {
       );
     }
     this.checkBalance(candidate.balance + amount);
-    candidate.balance += amount;
+    candidate.balance = parseInt(candidate.balance) + parseInt(amount);
     await candidate.save();
     console.log(`${UserModel.email}'s new balance is ${UserModel.balance} `);
   }
