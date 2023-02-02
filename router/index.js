@@ -9,6 +9,6 @@ router.post("/registration", authController.registration);
 router.post("/login", checkToken, authController.login);
 router.get("/activate/:link", authController.activate);
 router.put("/balance", checkToken, balanceController.createBalance);
-// router.post("/appointment", checkToken, appointmentService.create);
+router.post("/appointment", checkToken, appointmentService.create);
 
 module.exports = router;
