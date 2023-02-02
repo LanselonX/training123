@@ -1,20 +1,7 @@
-// const appointmentModel = require("../models/appointmentModel");
-// const userModel = require("../models/userModel");
+// const appointmentController = require("../controller/appointmentController");
 
-// class AppointmentService {
-//   async createAppointment(data, time, complaint, doctor, price) {
-//     const existingAppointment = await appointmentModel.findOne({ data });
-//     if (existingAppointment) {
-//       throw new Error("Запись уже существует");
-//     }
-//     const appointment = new appointmentModel({
-//       data,
-//       time,
-//       complaint,
-//       doctor,
-//       price,
-//     });
-//     await a();
-//     return appointment;
-//   }
-// }
+// const appointmentService = {
+//   create: (req, res) => appointmentController.create(req, res),
+// };
+
+// module.exports = appointmentService;

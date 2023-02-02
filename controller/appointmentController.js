@@ -1,14 +1,34 @@
-// const userModel = require('../models/userModel')
-// const appointmentModel = require('../models/appointmentModel')
+// const Appointment = require("../models/appointmentModel");
+// const User = require("../models/userModel");
 
 // class AppointmentController {
-//   async createAppointment(req,res) {
+//   async create(req, res) {
 //     try {
-//       const {data, time,complaint,doctor,price} =req.body
-//       // const appointment = await apServ
-//       res.json({message: "Запись создана"})
-//     } catch(e) {
-//       res.status(500).json({message: "Ошибка создания записи"})
+//       const { data, time, complaint, doctor, price } = req.body;
+//       const userId = req.user._id;
+
+//       const user = await User.findById(userId);
+//       if (!user) return res.status(400).send({ error: "User not found" });
+//       if (user.balance < price)
+//         return res.status(400).send({ error: "Not enough balance" });
+
+//       user.balance -= price;
+//       await user.save();
+
+//       const appointment = await Appointment.create({
+//         data,
+//         time,
+//         complaint,
+//         doctor,
+//         price,
+//         // user: userId,
+//       });
+
+//       return res.send({ appointment });
+//     } catch (error) {
+//       return res.status(400).send({ error: "Error creating appointment" });
 //     }
 //   }
 // }
+
+// module.exports = new AppointmentController();
