@@ -6,7 +6,7 @@ const AppointmentSchema = new Schema({
   complaint: { type: String },
   doctor: { type: String },
   price: { type: Number },
-  user: { type: Schema.Types.ObjectId, ref: "User" },
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = model("Appointment", AppointmentSchema);

@@ -1,10 +1,14 @@
-// const appointmentService = require("../services/appointmentService");
+// const userModel = require('../models/userModel')
+// const appointmentModel = require('../models/appointmentModel')
 
-// exports.create = async (req, res) => {
-//   try {
-//     const appointment = await AppointmentService.create(req.body);
-//     res.status(201).json(appointment);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
+// class AppointmentController {
+//   async createAppointment(req,res) {
+//     try {
+//       const {data, time,complaint,doctor,price} =req.body
+//       // const appointment = await apServ
+//       res.json({message: "Запись создана"})
+//     } catch(e) {
+//       res.status(500).json({message: "Ошибка создания записи"})
+//     }
 //   }
-// };
+// }
