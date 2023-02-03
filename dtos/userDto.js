@@ -5,7 +5,7 @@ module.exports = class userDto {
 
   constructor(model) {
     this.email = model.email;
-    this.is = model._id;
+    this.id = model._id;
     this.isActivated = model.isActivated;
   }
 };

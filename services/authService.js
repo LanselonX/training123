@@ -15,7 +15,7 @@ class AuthService {
       );
     }
     const hashedPassword = await bcrypt.hash(password, 7);
-    const activationLink = uuid.v4();
+    const activationLink = uuid.v4(); //v34fa-asfasf-142saf-sa-asf
     const user = await UserModel.create({
       email,
       password: hashedPassword,
