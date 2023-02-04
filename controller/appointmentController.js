@@ -6,11 +6,16 @@ const jwt = require("jsonwebtoken");
 class AppointmentController {
   async create(req, res) {
     try {
-      const { data, time, complaint, doctor, price } = req.body;
+      const { data, complaint, doctor, price } = req.body;
 
       const token = req.header("auth-token");
       const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-      const user = await User.find({ email: decoded.email });
+      if (!decoded.email) {
+        return res
+          .status(400)
+          .send({ error: "Email not found in the request body" });
+      }
+      const user = await User.findOne({ email: decoded.email });
 
       if (!user) return res.status(400).send({ error: "User not found" });
       if (user.balance < price)
@@ -20,12 +25,11 @@ class AppointmentController {
       await user.save();
 
       const appointment = await Appointment.create({
-        data,
-        time,
+        data: Date.now(),
         complaint,
         doctor,
         price,
-        user: email,
+        user: user._email,
       });
 
       return res.send({ appointment });

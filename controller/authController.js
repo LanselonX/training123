@@ -7,6 +7,7 @@ class AuthController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log("Validation error:", errors.arrat());
         return next(ApiError.BadRequest("Ошибка валидации", errors.array()));
       }
       const { email, password } = req.body;

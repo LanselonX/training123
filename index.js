@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const router = require("./router/index");
+const scheduler = require("./services/cronService");
 
 const PORT = process.env.PORT || 5444;
 const app = express();
@@ -21,3 +22,4 @@ const start = async () => {
 };
 
 start();
+scheduler.startSch();
