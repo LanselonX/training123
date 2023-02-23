@@ -1,7 +1,9 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-const moment = require("moment");
-const appointment = require("../controller/appointmentController");
+/* A library for working with dates. */
+// const moment = require("moment");
+const Appointment = require("../controller/appointmentController");
+const cron = require("node-cron");
 
 class MailService {
   constructor() {
@@ -14,28 +16,23 @@ class MailService {
         pass: process.env.SMTP_PASSWORD,
       },
     });
-  }
-
-  async sendAppointmentReminder(to, appointment) {
-    const reminderTime = moment(appointment.data).subtract(1, "hour");
-
-    await this.transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to,
-      subject: "Appointment Reminder",
-      text: "Письмо, которое должно напоминать",
-      html: `<div>
-        <h1>Reminder: Your appointment is coming soon</h1>
-        <p>Detalis: </p>
-        <ul>
-          <li>Date: ${appointment.data}</li>
-        </ul>
-        <p>This appointment reminder was sent ${reminderTime.fromNow()}.</p>
-      </div>
-      `,
+    cron.schedule("0 * * * *", async () => {
+      const tommorow = new Date();
+      tommorow.setDate(tommorow.getDate() + 1);
+      const appointments = await Appointment.find({ data: { $gte: tommorow } });
+      for (const appointment of appointments) {
+        const user = await User.findOne({ email: appointment.user });
+        if (user) {
+          this.transporter.sendMail({
+            from: process.env.SMTP_USER,
+            to: user.email,
+            subject: "Напоминание о записи",
+            text: `У вас назначена запись на ${appointment.data}. Не забудьте ее!`,
+          });
+        }
+      }
     });
   }
-
   async sendActivationMail(to, link) {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
